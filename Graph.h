@@ -20,9 +20,10 @@ public:
 	int contains(int vertexNum);
 	void DFS(Vertex v);
 	void BFS(Vertex v);
-	void shortestPath(Vertex source, Vertex destination);
+	void shortestPath(Vertex source);
 	void clearVisitedArr();
 	int size();
+	template<class> struct greater;
 	~Graph();
 };
 

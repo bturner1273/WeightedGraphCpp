@@ -8,8 +8,8 @@ Vertex::Vertex(int vertexNumber, EdgeList adjList)
 }
 
 Vertex Vertex::operator =(Vertex toClone) {
-	toClone.adjList = this->adjList;
-	toClone.vertexNum = this->vertexNum;
+	this->adjList = toClone.adjList;
+	this->vertexNum = toClone.vertexNum;
 	return toClone;
 }
 

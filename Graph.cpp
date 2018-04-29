@@ -1,6 +1,24 @@
 #include "Graph.h"
+#include<list>		//for BFS
 #include<algorithm>
+#include<limits>
+#include <queue>
 
+double *dist;
+int *prev_;
+
+template<class _Ty = void>
+struct Graph::greater
+{	// functor for operator<
+	_CXX17_DEPRECATE_ADAPTOR_TYPEDEFS typedef _Ty first_argument_type;
+	_CXX17_DEPRECATE_ADAPTOR_TYPEDEFS typedef _Ty second_argument_type;
+	_CXX17_DEPRECATE_ADAPTOR_TYPEDEFS typedef bool result_type;
+
+	constexpr bool operator()(const _Ty& _Left, const _Ty& _Right) const
+	{	// apply operator< to operands
+		return (dist[_Left] > dist[_Right]);
+	}
+};
 
 
 Graph::Graph()
@@ -114,17 +132,55 @@ void Graph::DFS(Vertex v) {
 }
 
 void Graph::BFS(Vertex v) {
+	clearVisitedArr();
+	list<Vertex> q;
+	//visited.at(v.vertexNum) = true;
+	q.push_back(v);
+	while (!q.empty()){
+		cout << q.front().vertexNum << " ";
+		v = q.front(); //dequeue
+		q.pop_front();
+		visited.at(v.vertexNum) = true;
+		for (Edge * x = v.adjList.head; x != NULL; x = x->next) {
+			if (!visited.at(x->vertexNum)) {
+				visited.at(x->vertexNum) = true;
+				q.push_back(graph.at(x->vertexNum));
+			}
+		}
 
+	}
 }
 
-void Graph::shortestPath(Vertex source, Vertex destination) {
+void Graph::shortestPath(Vertex source) {
+	dist = new double[graph.size()];
+	prev_ = new int[graph.size()]();
+	priority_queue<double, vector<double>, greater<int>> q;
+	cout << DBL_MAX +1 << endl;
+	memset(dist, DBL_MAX, graph.size() * sizeof(double));
+	memset(prev_, 0, graph.size() * sizeof(int));
+	for (int i = 0; i < graph.size(); i++) {
+		q.push(graph.at(i).vertexNum);
+	}
+	dist[source.vertexNum] = 0;
+	while (!q.empty()) {
+		int x = q.top();
+		q.pop();
+		for (Edge * i = graph.at(x).adjList.head; i != NULL; i = i->next) {
+			double temp = dist[x] + i->weight;
+			cout << temp << endl;
+			if (temp < dist[i->vertexNum]) {
+				dist[i->vertexNum] = temp;
+				prev_[i->vertexNum] = x;
+			}
+		}
+	}
+	for (int i = 0; i < graph.size(); i++) 
+		cout << "Vertex 0 shortest path to Vertex " << graph.at(i).vertexNum << " is " << dist[i] << endl;
 
+	delete[] dist;
+	delete[] prev_;
 }
 
 Graph::Graph(vector<Vertex> graph) {
 	this->graph = graph;
-}
-
-Graph::~Graph()
-{
 }
