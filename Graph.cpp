@@ -113,6 +113,13 @@ void Graph::DFS(Vertex v) {
 	clearVisitedArr();
 }
 
+void Graph::BFS(Vertex v) {
+
+}
+
+void Graph::shortestPath(Vertex source, Vertex destination) {
+
+}
 
 Graph::Graph(vector<Vertex> graph) {
 	this->graph = graph;

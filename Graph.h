@@ -19,6 +19,8 @@ public:
 	void sortEdgesOfAllVerticiesByWeight();
 	int contains(int vertexNum);
 	void DFS(Vertex v);
+	void BFS(Vertex v);
+	void shortestPath(Vertex source, Vertex destination);
 	void clearVisitedArr();
 	int size();
 	~Graph();
