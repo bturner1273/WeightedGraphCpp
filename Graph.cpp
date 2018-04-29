@@ -8,14 +8,23 @@ Graph::Graph()
 	writeGraph();
 	sortEdgesOfAllVerticiesByWeight();
 	sortVerticies();
+	clearVisitedArr();
 }
 
+void Graph:: clearVisitedArr() {
+	for (int i = 0; i < graph.size(); i++) {
+		visited.push_back(false);
+		visited.resize(graph.size());
+	}
+}
 
 void Graph::sortEdgesOfAllVerticiesByWeight() {
 	for (int i = 0; i < graph.size(); i++) {
 		graph.at(i).adjList.insertionSort(&graph.at(i).adjList.head);
 	}
 }
+
+
 
 void Graph::sortVerticies() {
 	struct less_than_key
@@ -26,6 +35,10 @@ void Graph::sortVerticies() {
 		}
 	};
 	sort(graph.begin(), graph.end(), less_than_key());
+}
+
+int Graph::size() {
+	return graph.size();
 }
 
 string Graph::toString() {
@@ -83,6 +96,21 @@ int Graph::contains(int vertexNum) {
 		}
 	}
 	return -1;
+}
+
+void Graph::DFS(Vertex v) {
+	//set the visited value in the vector 
+	//indexed at the array number to true
+	//and print the vertex number visited
+	visited.at(v.vertexNum) = true;
+	cout << v.vertexNum << " ";
+	//iterate through adjacency list
+	for (Edge * x = v.adjList.head; x != NULL; x = x->next) {
+		if (!visited.at(x->vertexNum)) {
+			DFS(graph.at(x->vertexNum));
+		}
+	}
+	clearVisitedArr();
 }
 
 

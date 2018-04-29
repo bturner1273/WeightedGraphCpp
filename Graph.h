@@ -7,6 +7,7 @@ using namespace std;
 class Graph
 {
 public:
+	vector<bool> visited;
 	vector<Vertex> graph;
 	Graph();
 	Graph(vector<Vertex> graph);
@@ -17,6 +18,9 @@ public:
 	void sortVerticies();
 	void sortEdgesOfAllVerticiesByWeight();
 	int contains(int vertexNum);
+	void DFS(Vertex v);
+	void clearVisitedArr();
+	int size();
 	~Graph();
 };
 

@@ -65,7 +65,7 @@ EdgeList::EdgeList(const EdgeList* copyLst) {
 	while (cpCurrent != NULL) {
 		Edge *newNode = new Edge();
 		newNode->vertexNum = cpCurrent->vertexNum;
-		newNode->weight = cpCurrent->weight;
+		newNode->weight = cpCurrent->weight;  
 		lsCurrent->next = newNode;
 		lsCurrent = lsCurrent->next;
 		cpCurrent = cpCurrent->next;
